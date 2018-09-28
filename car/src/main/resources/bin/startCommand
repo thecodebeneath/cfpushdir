@@ -1,0 +1,1 @@
+$HOME/.java-buildpack/open_jdk_jre/bin/java -jar lib/carService-1.0-SNAPSHOT-shaded.jar 'manifest-from-dirpath'

@@ -1,0 +1,9 @@
+---
+applications:
+- name: carservice-from-jarpath
+  path: target/release/lib/carService-1.0-SNAPSHOT-shaded.jar
+  buildpacks:
+  - java_buildpack
+  memory: 1G
+  instances: 1
+  random-route: true

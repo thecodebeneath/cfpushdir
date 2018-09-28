@@ -1,0 +1,10 @@
+---
+applications:
+- name: carservice-from-dirpath
+  path: target/release
+  command: "$PWD/bin/startCommand"
+  buildpacks:
+  - java_buildpack
+  memory: 1G
+  instances: 1
+  random-route: true
