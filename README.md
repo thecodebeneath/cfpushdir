@@ -10,6 +10,8 @@ Example for how to push to the Cloud Foundry Java buildpack using a either a sel
 # Project
 The Java project is simply two jars containing a CarService and an Engine class. This is enough to show how the uber-jar is constructed by the Maven Shade plugin and dependecy jars are declared in the pom.xml files.
 
+The project intentionally does not use Spring Boot dependencies so as to keep things simple and to mirror a non-Spring Boot web application being pushed to the Java buildpack.
+
 # Web Service
 When started, there is only one REST HTTP GET service:
 - Local:
