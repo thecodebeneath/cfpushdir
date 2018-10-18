@@ -1,0 +1,1 @@
+docker image build -t maven-cf:3.5.4-alpine .
