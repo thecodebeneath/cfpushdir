@@ -29,5 +29,6 @@ To run a Jenkins pipeline script that builds and pushes the application to Cloud
 - Create Docker image that Jenkins will use as the build agent. It includes the JDK, Maven and the CF CLI application by:
   - ```cd docker```
   - ```docker image build -t maven-cf:3.5.4-alpine .```
+- Start Jenkins as a Docker container using the "jenkinsci/blueocean" image. Reference these instructions to get started: https://jenkins.io/doc/tutorials/create-a-pipeline-in-blue-ocean/
 - Create a new Pipeline job and point it at the git repo and the ```Jenkinsfile```
 - Create a Jenkins credential to hold your Pivotal Cloud username and password, uniquely named with an id of ```cf-credentials```
