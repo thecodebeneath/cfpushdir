@@ -1,5 +1,5 @@
 # cfpushdir
-Example for how to push to the Cloud Foundry buildpack using a jar or directory structure. The commands to use, and directory structures are described in the car/pom.xml file.
+Example for how to push to the Cloud Foundry Java buildpack using a jar or directory structure. The commands to use, and directory structures are described in the car/pom.xml file.
 
 Requirements:
 - Jenkins started with Blue Ocean plugins installed (pipelines)
