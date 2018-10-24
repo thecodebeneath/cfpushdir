@@ -25,10 +25,17 @@ When started, there is only one REST HTTP GET service:
 - Doing a "cf push" using the ```manifest-from-dirpath.yml``` shows how to deploy an application that cannot be self contained, for example has a custom start script or external files it needs to load (provided in the uploaded directories).
 
 # Jenkins Pipeline
-To run a Jenkins pipeline script that builds and pushes the application to Cloud Foundry:
+## To run a Jenkins pipeline script that builds and pushes the application to Cloud Foundry:
 - Create Docker image that Jenkins will use as the build agent. It includes the JDK, Maven and the CF CLI application by:
   - ```cd docker```
   - ```docker image build -t maven-cf:3.5.4-alpine .```
 - Start Jenkins as a Docker container using the "jenkinsci/blueocean" image. Reference these instructions to get started: https://jenkins.io/doc/tutorials/create-a-pipeline-in-blue-ocean/
 - Create a new Pipeline job and point it at the git repo and the ```Jenkinsfile```
 - Create a Jenkins credential to hold your Pivotal Cloud username and password, uniquely named with an id of ```cf-credentials```
+
+## To run a Jenkins pipeline script that builds and creates a Docker image containing the built application:
+- Run the Jenkins blueocean container. Note the user "root" and the volume mount to the docker.sock file:
+```docker run --rm -u root -p 8080:8080 -v jenkins-data2:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/home jenkinsci/blueocean```
+- Use the Jenkins plugin admin to automatically install a version of Maven and label it "M3"
+- Create a new Pipeline job and point it at the git repo and the ```Jenkinsfile```
+  - Note that this Jenkins file tells the build to run the Jenkins master, and not on a ```agent { docker ... }``` because the script needs access to the docker client and docker daemon, which a docker agent would not be able to do.
