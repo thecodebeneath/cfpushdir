@@ -1,9 +1,7 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven-cf:3.5.4-alpine' 
-            args '-v /root/.m2:/root/.m2' 
-        }
+    agent any
+    tools {
+        maven 'M3'
     }
     stages {
         stage('Preparation') {
@@ -11,18 +9,19 @@ pipeline {
                 git 'https://github.com/thecodebeneath/cfpushdir.git'
             }
         }
-        stage('Build') {
+        stage('Maven Build') {
             steps {
                 sh 'mvn clean install'
             }
         }
-        stage('Push to CF') {
+        stage('Docker Build Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'cf-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh '''cf login -u "$USERNAME" -p "$PASSWORD" -a https://api.run.pivotal.io'''
-                    sh 'cd ./car; cf push -f manifest-from-dirpath.yml'
-                    sh 'cf logout'
-                }
+                script {
+                    // docker.withRegistry('https://registry.example.com', 'credentials-id') {
+                         def customImage = docker.build("cfpushdir:${env.BUILD_ID}", "./scripts/docker")
+                    //   customImage.push()
+                    // }
+                }        
             }
         }
     }
