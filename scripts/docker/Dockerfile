@@ -1,3 +1,5 @@
+#
+# Dockerfile to create an image with maven and cloud foundry cli installed
 # > docker image build -t maven-cf:3.5.4-alpine .
 #
 # Use an lightweight maven runtime as a parent image
